@@ -49,16 +49,16 @@ class SnapshotTest {
   fun solidStroke() {
 
     val d =
-shapeDrawable {
-  shape = GradientDrawable.OVAL
+        shapeDrawable {
+          shape = GradientDrawable.OVAL
 
-  solidColor = Color.parseColor("#199fff")
+          solidColor = Color.parseColor("#199fff")
 
-  stroke {
-    width = ctx.dip(2)
-    color = Color.parseColor("#444444")
-  }
-}
+          stroke {
+            width = ctx.dip(2)
+            color = Color.parseColor("#444444")
+          }
+        }
 
     snapshot(ctx.drawable(R.drawable.solidstroke)).sameAs(snapshot(d)).should.be.`true`
   }
