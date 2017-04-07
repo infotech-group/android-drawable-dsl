@@ -1,0 +1,47 @@
+buildscript {
+  System.setProperty("java.awt.headless", "true") // mergeDebugResources spawns annoying AWT UI
+
+  ext {
+    versions = [
+        android       : "2.3.1",
+        kotlin        : "1.1.0",
+        gradleVersions: "0.14.0",
+    ]
+  }
+
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath "com.android.tools.build:gradle:$versions.android"
+    classpath "com.github.ben-manes:gradle-versions-plugin:$versions.gradleVersions"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+  }
+}
+
+apply plugin: "com.github.ben-manes.versions"
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+android {
+  compileSdkVersion 25
+  buildToolsVersion "25.0.2"
+
+  defaultConfig {
+    minSdkVersion 1
+    targetSdkVersion 25
+  }
+
+  sourceSets.each {
+    it.java.srcDirs += "src/${it.name}/kotlin"
+  }
+}
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+}
