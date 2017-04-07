@@ -2,6 +2,7 @@ package group.infotech.drawable.dsl
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -61,5 +62,39 @@ class SnapshotTest {
         }
 
     snapshot(ctx.drawable(R.drawable.solidstroke)).sameAs(snapshot(d)).should.be.`true`
+  }
+
+  @Test
+  fun states() {
+
+    val check = { d: Drawable -> d.state = ViewStates.checked() }
+    val uncheck = { d: Drawable -> d.state = ViewStates.unchecked() }
+
+    val dsl =
+        stateListDrawable {
+
+          checkedState {
+            shapeDrawable {
+              solidColor = Color.BLACK
+            }
+          }
+
+          pressedState {
+            shapeDrawable {
+              solidColor = Color.RED
+            }
+          }
+
+          defaultState {
+            shapeDrawable {
+              solidColor = Color.WHITE
+            }
+          }
+        }
+
+    val xml = ctx.drawable(R.drawable.states)
+
+    snapshot(xml.also(check)).sameAs(snapshot(dsl.also(check))).should.be.`true`
+    snapshot(xml.also(uncheck)).sameAs(snapshot(dsl.also(uncheck))).should.be.`true`
   }
 }
