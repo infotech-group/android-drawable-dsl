@@ -6,6 +6,9 @@ buildscript {
         android       : "2.3.1",
         kotlin        : "1.1.0",
         gradleVersions: "0.14.0",
+        supportTest   : "0.5",
+        expekt        : "0.5.0",
+        anko          : "0.9",
     ]
   }
 
@@ -29,8 +32,10 @@ android {
   buildToolsVersion "25.0.2"
 
   defaultConfig {
-    minSdkVersion 1
+    minSdkVersion 12
     targetSdkVersion 25
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
 
   sourceSets.each {
@@ -44,4 +49,8 @@ repositories {
 
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+
+  androidTestCompile "com.android.support.test:runner:$versions.supportTest"
+  androidTestCompile("com.winterbe:expekt:$versions.expekt") { exclude group: "org.jetbrains.kotlin" }
+  androidTestCompile "org.jetbrains.anko:anko-sdk15:$versions.anko"
 }

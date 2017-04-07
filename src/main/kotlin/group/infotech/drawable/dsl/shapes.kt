@@ -27,8 +27,8 @@ fun rectangleShape(radius: Float? = null, color: ColorInt, size: Int? = null): G
 
 fun circleShape(color: ColorInt, size: Px? = null): GradientDrawable =
     shapeDrawable {
-      this.shape = GradientDrawable.OVAL
-      this.solidColor = color
+      shape = GradientDrawable.OVAL
+      solidColor = color
 
       size?.let {
         this.size = it
@@ -42,3 +42,14 @@ var GradientDrawable.solidColor: ColorInt
 var GradientDrawable.size: Px
   set(value) = setSize(value, value)
   get() = intrinsicWidth
+
+class Stroke(
+    var width: Px = -1,
+    var color: ColorInt = -1
+)
+
+inline fun <T> GradientDrawable.stroke(fill: Stroke.() -> T): Unit =
+    Stroke().let { s ->
+      s.fill()
+      setStroke(s.width, s.color)
+    }
