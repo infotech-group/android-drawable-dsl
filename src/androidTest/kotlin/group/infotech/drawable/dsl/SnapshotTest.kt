@@ -127,7 +127,7 @@ layerDrawable(
       shape = GradientDrawable.OVAL
 
       stroke {
-        width = ctx.dip(5)
+        width = 50
         color = Color.parseColor("#000000")
       }
     },
@@ -136,7 +136,7 @@ layerDrawable(
       shape = GradientDrawable.OVAL
 
       stroke {
-        width = ctx.dip(2)
+        width = 20
         color = Color.parseColor("#ffffff")
       }
     }
