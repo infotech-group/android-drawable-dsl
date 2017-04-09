@@ -116,4 +116,32 @@ class SnapshotTest {
 
     dsl should drawPixelsLike(xml)
   }
+
+  @Test
+  fun layers() {
+
+    val dsl =
+layerDrawable(
+
+    shapeDrawable {
+      shape = GradientDrawable.OVAL
+
+      stroke {
+        width = ctx.dip(5)
+        color = Color.parseColor("#000000")
+      }
+    },
+
+    shapeDrawable {
+      shape = GradientDrawable.OVAL
+
+      stroke {
+        width = ctx.dip(2)
+        color = Color.parseColor("#ffffff")
+      }
+    }
+)
+
+    dsl should drawPixelsLike(ctx.drawable(R.drawable.layers))
+  }
 }

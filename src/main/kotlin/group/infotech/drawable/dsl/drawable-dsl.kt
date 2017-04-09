@@ -11,6 +11,7 @@ import android.view.Gravity
 
 typealias ColorInt = Int
 typealias Px = Int
+typealias FloatPx = Float
 typealias Milliseconds = Int
 typealias GravityInt = Int
 
