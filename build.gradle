@@ -51,6 +51,6 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 
   androidTestCompile "com.android.support.test:runner:$versions.supportTest"
-  androidTestCompile("com.winterbe:expekt:$versions.expekt") { exclude group: "org.jetbrains.kotlin" }
+  androidTestCompile "io.kotlintest:kotlintest:2.0.0"
   androidTestCompile "org.jetbrains.anko:anko-sdk15:$versions.anko"
 }
