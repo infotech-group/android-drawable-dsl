@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.winterbe.expekt.should
 import group.infotech.drawable.dsl.test.R
+import io.kotlintest.matchers.should
 import org.jetbrains.anko.dip
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,20 +20,20 @@ class SnapshotTest {
   @Test
   fun redCircle() {
 
-    val d =
+    val dsl =
         shapeDrawable {
           shape = GradientDrawable.OVAL
           solidColor = Color.parseColor("#666666")
           size = ctx.dip(120)
         }
 
-    snapshot(ctx.drawable(R.drawable.redcircle)).sameAs(snapshot(d)).should.be.`true`
+    dsl should drawPixelsLike(ctx.drawable(R.drawable.redcircle))
   }
 
   @Test
   fun blueStroke() {
 
-    val d =
+    val dsl =
         shapeDrawable {
           shape = GradientDrawable.OVAL
 
@@ -43,13 +43,13 @@ class SnapshotTest {
           }
         }
 
-    snapshot(ctx.drawable(R.drawable.bluestroke)).sameAs(snapshot(d)).should.be.`true`
+    dsl should drawPixelsLike(ctx.drawable(R.drawable.bluestroke))
   }
 
   @Test
   fun solidStroke() {
 
-    val d =
+    val dsl =
         shapeDrawable {
           shape = GradientDrawable.OVAL
 
@@ -61,7 +61,7 @@ class SnapshotTest {
           }
         }
 
-    snapshot(ctx.drawable(R.drawable.solidstroke)).sameAs(snapshot(d)).should.be.`true`
+    dsl should drawPixelsLike(ctx.drawable(R.drawable.solidstroke))
   }
 
   @Test
@@ -94,7 +94,26 @@ class SnapshotTest {
 
     val xml = ctx.drawable(R.drawable.states)
 
-    snapshot(xml.also(check)).sameAs(snapshot(dsl.also(check))).should.be.`true`
-    snapshot(xml.also(uncheck)).sameAs(snapshot(dsl.also(uncheck))).should.be.`true`
+    dsl.also(check) should drawPixelsLike(xml.also(check))
+    dsl.also(uncheck) should drawPixelsLike(xml.also(uncheck))
+  }
+
+  @Test
+  fun sizes() {
+
+    val dsl =
+        shapeDrawable {
+          shape = GradientDrawable.OVAL
+          solidColor = Color.parseColor("#666666")
+
+          size {
+            width = ctx.dip(120)
+            height = ctx.dip(240)
+          }
+        }
+
+    val xml = ctx.drawable(R.drawable.sizes)
+
+    dsl should drawPixelsLike(xml)
   }
 }

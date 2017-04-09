@@ -43,13 +43,26 @@ var GradientDrawable.size: Px
   set(value) = setSize(value, value)
   get() = intrinsicWidth
 
-class Stroke(
-    var width: Px = -1,
-    var color: ColorInt = -1
-)
+class Stroke {
+  var width: Px = -1
+  var color: ColorInt = -1
+}
 
-inline fun <T> GradientDrawable.stroke(fill: Stroke.() -> T): Unit =
+inline fun <T> GradientDrawable.stroke(fill: Stroke.() -> T): T =
     Stroke().let { s ->
-      s.fill()
-      setStroke(s.width, s.color)
+      s.fill().also {
+        setStroke(s.width, s.color)
+      }
+    }
+
+class Size {
+  var width: Px = -1
+  var height: Px = -1
+}
+
+inline fun <T> GradientDrawable.size(fill: Size.() -> T): T =
+    Size().let { s ->
+      s.fill().also {
+        setSize(s.width, s.height)
+      }
     }
