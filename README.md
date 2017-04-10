@@ -142,8 +142,10 @@ repositories {
 }
 ```
 
+[![](https://jitpack.io/v/infotech-group/android-drawable-dsl.svg)](https://jitpack.io/#infotech-group/android-drawable-dsl)
+
 ```groovy
-compile "com.github.infotech-group:android-drawable-dsl:0.1.0"
+compile "com.github.infotech-group:android-drawable-dsl:latest"
 ```
 
 ### Contribute
