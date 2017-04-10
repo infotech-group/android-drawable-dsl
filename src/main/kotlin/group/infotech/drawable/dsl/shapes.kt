@@ -46,12 +46,14 @@ var GradientDrawable.size: Px
 class Stroke {
   var width: Px = -1
   var color: ColorInt = -1
+  var dashWidth: FloatPx = 0F
+  var dashGap: FloatPx = 0F
 }
 
 inline fun <T> GradientDrawable.stroke(fill: Stroke.() -> T): T =
     Stroke().let { s ->
       s.fill().also {
-        setStroke(s.width, s.color)
+        setStroke(s.width, s.color, s.dashWidth, s.dashGap)
       }
     }
 
