@@ -4,11 +4,10 @@ buildscript {
   ext {
     versions = [
         android       : "2.3.1",
-        kotlin        : "1.1.0",
+        kotlin        : "1.1.2-4",
         gradleVersions: "0.14.0",
         supportTest   : "0.5",
-        expekt        : "0.5.0",
-        anko          : "0.9",
+        anko          : "0.10.0",
     ]
   }
 
@@ -51,6 +50,6 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 
   androidTestCompile "com.android.support.test:runner:$versions.supportTest"
-  androidTestCompile "io.kotlintest:kotlintest:2.0.0"
-  androidTestCompile "org.jetbrains.anko:anko-sdk15:$versions.anko"
+  androidTestCompile "io.kotlintest:kotlintest:2.0.2"
+  androidTestCompile "org.jetbrains.anko:anko-commons:$versions.anko"
 }
