@@ -1,0 +1,21 @@
+# Disable emulator audio
+machine:
+  environment:
+    QEMU_AUDIO_DRV: none
+
+dependencies:
+  pre:
+    - echo y | android update sdk --no-ui --all --filter "build-tools-25.0.3"
+
+test:
+  override:
+    # start the emulator
+    - emulator -avd circleci-android24 -no-window:
+        background: true
+        parallel: true
+    # wait for it to have booted
+    - circle-android wait-for-boot
+    # run tests  against the emulator.
+    - ./gradlew connectedAndroidTest
+    # copy the test results to the test results directory.
+    - cp -r build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
