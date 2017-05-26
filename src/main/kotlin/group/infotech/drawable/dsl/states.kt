@@ -51,6 +51,8 @@ inline fun StateListDrawable.unCheckedState(block: () -> Drawable): Unit =
 inline fun StateListDrawable.defaultState(block: () -> Drawable): Unit =
     state(StateSet.WILD_CARD, block)
 
+internal const val NO_GETTER = "Getter not available"
+
 var StateListDrawable.exitFadeDuration: Milliseconds
   set(value) = setExitFadeDuration(value)
-  get() = error("sorry")
+  @Deprecated(message = NO_GETTER, level = DeprecationLevel.ERROR) get() = error(NO_GETTER)

@@ -37,7 +37,7 @@ fun circleShape(color: ColorInt, size: Px? = null): GradientDrawable =
 
 var GradientDrawable.solidColor: ColorInt
   set(value) = setColor(value)
-  get() = error("sorry")
+  @Deprecated(message = NO_GETTER, level = DeprecationLevel.ERROR) get() = error(NO_GETTER)
 
 var GradientDrawable.size: Px
   set(value) = setSize(value, value)
