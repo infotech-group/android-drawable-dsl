@@ -1,5 +1,6 @@
 package group.infotech.drawable.dsl
 
+import android.annotation.TargetApi
 import android.graphics.drawable.GradientDrawable
 
 inline fun shapeDrawable(block: GradientDrawable.() -> Unit): GradientDrawable =
@@ -8,14 +9,48 @@ inline fun shapeDrawable(block: GradientDrawable.() -> Unit): GradientDrawable =
       it.block()
     }
 
-fun rectangleShape(radius: Float? = null, color: ColorInt, size: Int? = null): GradientDrawable =
+enum class Shape {
+  RECTANGLE,
+  OVAL,
+  LINE,
+  RING,
+}
+
+typealias ShapeInt = Int
+
+fun toInt(s: Shape): ShapeInt =
+    when (s) {
+      Shape.RECTANGLE -> GradientDrawable.RECTANGLE
+      Shape.OVAL      -> GradientDrawable.OVAL
+      Shape.LINE      -> GradientDrawable.LINE
+      Shape.RING      -> GradientDrawable.RING
+    }
+
+fun fromInt(s: ShapeInt): Shape? =
+    when (s) {
+      GradientDrawable.RECTANGLE -> Shape.RECTANGLE
+      GradientDrawable.OVAL      -> Shape.OVAL
+      GradientDrawable.LINE      -> Shape.LINE
+      GradientDrawable.RING      -> Shape.RING
+      else                       -> null
+    }
+
+var GradientDrawable.shapeEnum: Shape
+  set(value) {
+    shape = toInt(value)
+  }
+  @TargetApi(24) get() = fromInt(shape) ?: error("Illegal shape int $shape")
+
+fun rectangleShape(radius: FloatPx = Float.NaN,
+                   color: ColorInt,
+                   size: Px? = null): GradientDrawable =
     shapeDrawable {
-      shape = GradientDrawable.RECTANGLE
+      shapeEnum = Shape.RECTANGLE
 
       // DO NOT CHANGE
       // RADIUS AND COLOR ORDER IS IMPORTANT FOR RIPPLES!
-      radius?.let {
-        cornerRadius = it
+      if (radius != Float.NaN) {
+        cornerRadius = radius
       }
 
       solidColor = color
