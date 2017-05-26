@@ -22,15 +22,8 @@ inline fun scaleDrawable(scale: Float, gravity: GravityInt = Gravity.CENTER, blo
     }
 
 @TargetApi(21)
-inline fun rippleDrawable(color: ColorStateList,
-                          content: Drawable?,
-                          mask: Drawable?,
-                          block: RippleDrawable.() -> Unit): RippleDrawable =
-    RippleDrawable(color, content, mask).apply(block)
-
-@TargetApi(21)
 fun rippleDrawable(color: ColorStateList, content: Drawable?, mask: Drawable?): RippleDrawable =
-    rippleDrawable(color, content, mask) { }
+    RippleDrawable(color, content, mask)
 
 fun maybeRipple(content: Drawable, pressed: Drawable, pressedColor: ColorInt): Drawable =
     if (Build.VERSION.SDK_INT >= 21) {
