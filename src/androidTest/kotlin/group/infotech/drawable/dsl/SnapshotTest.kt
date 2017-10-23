@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
+import android.util.Log
 import group.infotech.drawable.dsl.test.R
 import io.kotlintest.matchers.should
 import org.jetbrains.anko.dip
@@ -143,5 +144,20 @@ class SnapshotTest {
         )
 
     dsl should drawPixelsLike(ctx.drawable(R.drawable.layers))
+  }
+
+  @Test
+  fun corners() {
+
+    val dsl = shapeDrawable {
+      shape = GradientDrawable.RECTANGLE
+      corners (10f){
+        topLeft = 15f
+        bottomRight = 5f
+      }
+      solidColor = Color.parseColor("#666666")
+    }
+
+    dsl should drawPixelsLike(ctx.drawable(R.drawable.corners))
   }
 }

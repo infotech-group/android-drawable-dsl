@@ -101,3 +101,20 @@ inline fun GradientDrawable.size(fill: Size.() -> Unit) =
       fill()
       setSize(width, height)
     }
+
+class Corners(all: FloatPx) {
+  var topLeft: FloatPx = all
+  var topRight: FloatPx = all
+  var bottomLeft: FloatPx = all
+  var bottomRight: FloatPx = all
+}
+
+inline fun GradientDrawable.corners(all: FloatPx, fill: Corners.() -> Unit) =
+    Corners(all).apply {
+      cornerRadius = all
+      fill()
+      if (topLeft != all || topRight != all || bottomLeft != all || bottomRight != all)
+        cornerRadii = floatArrayOf(topLeft, topLeft, topRight, topRight, bottomRight, bottomRight, bottomLeft, bottomLeft)
+    }
+
+inline fun GradientDrawable.corners(fill: Corners.() -> Unit) = corners(0f, fill)
