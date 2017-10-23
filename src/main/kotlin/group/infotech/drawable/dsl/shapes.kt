@@ -4,9 +4,9 @@ import android.annotation.TargetApi
 import android.graphics.drawable.GradientDrawable
 
 inline fun shapeDrawable(block: GradientDrawable.() -> Unit): GradientDrawable =
-    GradientDrawable().also {
-      it.gradientType = GradientDrawable.LINEAR_GRADIENT
-      it.block()
+    GradientDrawable().apply {
+      gradientType = GradientDrawable.LINEAR_GRADIENT
+      block()
     }
 
 enum class Shape {
@@ -85,11 +85,10 @@ class Stroke {
   var dashGap: FloatPx = 0F
 }
 
-inline fun <T> GradientDrawable.stroke(fill: Stroke.() -> T): T =
-    Stroke().let { s ->
-      s.fill().also {
-        setStroke(s.width, s.color, s.dashWidth, s.dashGap)
-      }
+inline fun GradientDrawable.stroke(fill: Stroke.() -> Unit) =
+    Stroke().apply {
+      fill()
+      setStroke(width, color, dashWidth, dashGap)
     }
 
 class Size {
@@ -97,9 +96,8 @@ class Size {
   var height: Px = -1
 }
 
-inline fun <T> GradientDrawable.size(fill: Size.() -> T): T =
-    Size().let { s ->
-      s.fill().also {
-        setSize(s.width, s.height)
-      }
+inline fun GradientDrawable.size(fill: Size.() -> Unit) =
+    Size().apply {
+      fill()
+      setSize(width, height)
     }
