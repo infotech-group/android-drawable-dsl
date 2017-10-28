@@ -4,9 +4,9 @@ import android.annotation.TargetApi
 import android.graphics.drawable.GradientDrawable
 
 inline fun shapeDrawable(block: GradientDrawable.() -> Unit): GradientDrawable =
-    GradientDrawable().apply {
-      gradientType = GradientDrawable.LINEAR_GRADIENT
-      block()
+    GradientDrawable().also {
+      it.gradientType = GradientDrawable.LINEAR_GRADIENT
+      block(it)
     }
 
 enum class Shape {
@@ -85,10 +85,10 @@ class Stroke {
   var dashGap: FloatPx = 0F
 }
 
-inline fun GradientDrawable.stroke(fill: Stroke.() -> Unit) =
-    Stroke().apply {
-      fill()
-      setStroke(width, color, dashWidth, dashGap)
+inline fun GradientDrawable.stroke(fill: Stroke.() -> Unit): Stroke =
+    Stroke().also {
+      it.fill()
+      setStroke(it.width, it.color, it.dashWidth, it.dashGap)
     }
 
 class Size {
@@ -96,10 +96,10 @@ class Size {
   var height: Px = -1
 }
 
-inline fun GradientDrawable.size(fill: Size.() -> Unit) =
-    Size().apply {
-      fill()
-      setSize(width, height)
+inline fun GradientDrawable.size(fill: Size.() -> Unit): Size =
+    Size().also {
+      fill(it)
+      setSize(it.width, it.height)
     }
 
 class Corners(all: FloatPx) {
@@ -109,12 +109,25 @@ class Corners(all: FloatPx) {
   var bottomRight: FloatPx = all
 }
 
-inline fun GradientDrawable.corners(all: FloatPx, fill: Corners.() -> Unit) =
-    Corners(all).apply {
+inline fun GradientDrawable.corners(all: FloatPx, fill: Corners.() -> Unit): Corners =
+    Corners(all).also {
+
       cornerRadius = all
-      fill()
-      if (topLeft != all || topRight != all || bottomLeft != all || bottomRight != all)
-        cornerRadii = floatArrayOf(topLeft, topLeft, topRight, topRight, bottomRight, bottomRight, bottomLeft, bottomLeft)
+
+      fill(it)
+
+      if (it.topLeft != all || it.topRight != all || it.bottomLeft != all || it.bottomRight != all)
+        cornerRadii = floatArrayOf(
+            it.topLeft,
+            it.topLeft,
+            it.topRight,
+            it.topRight,
+            it.bottomRight,
+            it.bottomRight,
+            it.bottomLeft,
+            it.bottomLeft
+        )
     }
 
-inline fun GradientDrawable.corners(fill: Corners.() -> Unit) = corners(0f, fill)
+inline fun GradientDrawable.corners(fill: Corners.() -> Unit): Corners =
+    corners(0f, fill)
