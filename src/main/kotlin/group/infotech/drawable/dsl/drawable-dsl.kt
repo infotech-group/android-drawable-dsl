@@ -16,9 +16,9 @@ typealias Milliseconds = Int
 typealias GravityInt = Int
 
 inline fun scaleDrawable(scale: Float, gravity: GravityInt = Gravity.CENTER, block: () -> Drawable): ScaleDrawable =
-    ScaleDrawable(block(), gravity, scale, scale).apply {
+    ScaleDrawable(block(), gravity, scale, scale).also {
       // hacking dem android drawables
-      level = 1
+      it.level = 1
     }
 
 @TargetApi(21)

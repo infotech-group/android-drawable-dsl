@@ -3,10 +3,10 @@ package group.infotech.drawable.dsl
 import android.annotation.TargetApi
 import android.graphics.drawable.GradientDrawable
 
-inline fun shapeDrawable(block: GradientDrawable.() -> Unit): GradientDrawable =
+inline fun shapeDrawable(fill: GradientDrawable.() -> Unit): GradientDrawable =
     GradientDrawable().also {
       it.gradientType = GradientDrawable.LINEAR_GRADIENT
-      block(it)
+      it.fill()
     }
 
 enum class Shape {
