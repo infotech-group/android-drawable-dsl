@@ -26,18 +26,22 @@ fun rippleDrawable(color: ColorStateList, content: Drawable?, mask: Drawable?): 
     RippleDrawable(color, content, mask)
 
 fun maybeRipple(content: Drawable, pressed: Drawable, pressedColor: ColorInt): Drawable =
-    if (Build.VERSION.SDK_INT >= 21) {
-        rippleDrawable(color = ColorStateList.valueOf(pressedColor),
-                       content = content,
-                       mask = content)
-    } else {
-        stateListDrawable {
-            exitFadeDuration = 300
+    when {
+        Build.VERSION.SDK_INT >= 21 ->
+            rippleDrawable(
+                color = ColorStateList.valueOf(pressedColor),
+                content = content,
+                mask = content
+            )
 
-            pressedState { pressed }
+        else ->
+            stateListDrawable {
+                exitFadeDuration = 300
 
-            defaultState { content }
-        }
+                pressedState { pressed }
+
+                defaultState { content }
+            }
     }
 
 /**

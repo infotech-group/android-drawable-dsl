@@ -28,11 +28,9 @@ fun Context.drawable(d: DrawableRes): Drawable =
 
 fun drawPixelsLike(actual: Drawable): Matcher<Drawable> =
     object : Matcher<Drawable> {
-        override fun test(value: Drawable): Result {
-            val actB = snapshot(actual)
-            val expectedB = snapshot(value)
-
-            return Result(passed = expectedB.sameAs(actB),
-                          message = "$value has different pixels than $actual")
-        }
+        override fun test(value: Drawable): Result =
+            Result(
+                passed = snapshot(value).sameAs(snapshot(actual)),
+                message = "$value has different pixels than $actual"
+            )
     }
