@@ -24,7 +24,7 @@ android:
 # Emulator Management: Create, Start and Wait
 before_script:
   - android list targets
-  - echo no | android create avd --force -n test -t android-$ANDROID_API_LEVEL --abi "no ABIs."
+  - echo no | android create avd -n test -t android-$ANDROID_API_LEVEL --abi "no ABIs."
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82
