@@ -47,10 +47,34 @@ repositories {
   google()
 }
 
+configurations {
+  ktlint
+}
+
 dependencies {
+  ktlint "com.github.shyiko:ktlint:0.11.1"
+
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 
   androidTestImplementation "com.android.support.test:runner:$versions.supportTest"
   androidTestImplementation "io.kotlintest:kotlintest:2.0.7"
   androidTestImplementation "org.jetbrains.anko:anko-commons:$versions.anko"
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+  description = "Check Kotlin code style."
+  main = "com.github.shyiko.ktlint.Main"
+  classpath = configurations.ktlint
+  args "src/**/*.kt"
+  // to generate report in checkstyle format prepend following args:
+  // "--reporter=plain", "--reporter=checkstyle,output=${buildDir}/ktlint.xml"
+  // see https://github.com/shyiko/ktlint#usage for more
+}
+check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+  description = "Fix Kotlin code style deviations."
+  main = "com.github.shyiko.ktlint.Main"
+  classpath = configurations.ktlint
+  args "-F", "src/**/*.kt"
 }

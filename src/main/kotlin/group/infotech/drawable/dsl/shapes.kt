@@ -21,18 +21,18 @@ typealias ShapeInt = Int
 fun toInt(s: Shape): ShapeInt =
     when (s) {
       Shape.RECTANGLE -> GradientDrawable.RECTANGLE
-      Shape.OVAL      -> GradientDrawable.OVAL
-      Shape.LINE      -> GradientDrawable.LINE
-      Shape.RING      -> GradientDrawable.RING
+      Shape.OVAL -> GradientDrawable.OVAL
+      Shape.LINE -> GradientDrawable.LINE
+      Shape.RING -> GradientDrawable.RING
     }
 
 fun fromInt(s: ShapeInt): Shape? =
     when (s) {
       GradientDrawable.RECTANGLE -> Shape.RECTANGLE
-      GradientDrawable.OVAL      -> Shape.OVAL
-      GradientDrawable.LINE      -> Shape.LINE
-      GradientDrawable.RING      -> Shape.RING
-      else                       -> null
+      GradientDrawable.OVAL -> Shape.OVAL
+      GradientDrawable.LINE -> Shape.LINE
+      GradientDrawable.RING -> Shape.RING
+      else -> null
     }
 
 var GradientDrawable.shapeEnum: Shape
