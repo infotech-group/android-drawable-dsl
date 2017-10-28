@@ -19,7 +19,7 @@ object ViewStates {
 }
 
 inline fun stateListDrawable(block: StateListDrawable.() -> Unit): StateListDrawable =
-    StateListDrawable().apply(block)
+    StateListDrawable().also(block)
 
 inline fun StateListDrawable.state(state: IntArray, block: () -> Drawable): Unit =
     addState(state, block())
