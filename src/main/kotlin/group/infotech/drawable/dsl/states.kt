@@ -5,17 +5,17 @@ import android.graphics.drawable.StateListDrawable
 import android.util.StateSet
 
 object ViewStates {
-  fun enabled() = intArrayOf(android.R.attr.state_enabled)
-  fun disabled() = intArrayOf(-android.R.attr.state_enabled)
+    fun enabled() = intArrayOf(android.R.attr.state_enabled)
+    fun disabled() = intArrayOf(-android.R.attr.state_enabled)
 
-  fun selected() = intArrayOf(android.R.attr.state_selected)
-  fun notSelected() = intArrayOf(-android.R.attr.state_selected)
+    fun selected() = intArrayOf(android.R.attr.state_selected)
+    fun notSelected() = intArrayOf(-android.R.attr.state_selected)
 
-  fun pressed() = intArrayOf(android.R.attr.state_pressed)
-  fun notPressed() = intArrayOf(-android.R.attr.state_pressed)
+    fun pressed() = intArrayOf(android.R.attr.state_pressed)
+    fun notPressed() = intArrayOf(-android.R.attr.state_pressed)
 
-  fun checked() = intArrayOf(android.R.attr.state_checked)
-  fun unchecked() = intArrayOf(-android.R.attr.state_checked)
+    fun checked() = intArrayOf(android.R.attr.state_checked)
+    fun unchecked() = intArrayOf(-android.R.attr.state_checked)
 }
 
 inline fun stateListDrawable(block: StateListDrawable.() -> Unit): StateListDrawable =
@@ -54,5 +54,5 @@ inline fun StateListDrawable.defaultState(block: () -> Drawable): Unit =
 internal const val NO_GETTER = "Getter not available"
 
 var StateListDrawable.exitFadeDuration: Milliseconds
-  set(value) = setExitFadeDuration(value)
-  @Deprecated(message = NO_GETTER, level = DeprecationLevel.ERROR) get() = error(NO_GETTER)
+    set(value) = setExitFadeDuration(value)
+    @Deprecated(message = NO_GETTER, level = DeprecationLevel.ERROR) get() = error(NO_GETTER)

@@ -9,15 +9,15 @@ import io.kotlintest.matchers.Result
 
 fun snapshot(d: Drawable): Bitmap {
 
-  val width = d.intrinsicWidth.takeIf { it > 0 } ?: 512
-  val height = d.intrinsicHeight.takeIf { it > 0 } ?: 512
+    val width = d.intrinsicWidth.takeIf { it > 0 } ?: 512
+    val height = d.intrinsicHeight.takeIf { it > 0 } ?: 512
 
-  d.setBounds(0, 0, width, height)
+    d.setBounds(0, 0, width, height)
 
-  return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-      .also {
-        d.draw(Canvas(it))
-      }
+    return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        .also {
+            d.draw(Canvas(it))
+        }
 }
 
 typealias DrawableRes = Int
@@ -28,11 +28,11 @@ fun Context.drawable(d: DrawableRes): Drawable =
 
 fun drawPixelsLike(actual: Drawable): Matcher<Drawable> =
     object : Matcher<Drawable> {
-      override fun test(value: Drawable): Result {
-        val actB = snapshot(actual)
-        val expectedB = snapshot(value)
+        override fun test(value: Drawable): Result {
+            val actB = snapshot(actual)
+            val expectedB = snapshot(value)
 
-        return Result(passed = expectedB.sameAs(actB),
-                      message = "$value has different pixels than $actual")
-      }
+            return Result(passed = expectedB.sameAs(actB),
+                          message = "$value has different pixels than $actual")
+        }
     }

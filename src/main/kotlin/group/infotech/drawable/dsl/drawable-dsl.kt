@@ -17,8 +17,8 @@ typealias GravityInt = Int
 
 inline fun scaleDrawable(scale: Float, gravity: GravityInt = Gravity.CENTER, block: () -> Drawable): ScaleDrawable =
     ScaleDrawable(block(), gravity, scale, scale).also {
-      // hacking dem android drawables
-      it.level = 1
+        // hacking dem android drawables
+        it.level = 1
     }
 
 @TargetApi(21)
@@ -27,17 +27,17 @@ fun rippleDrawable(color: ColorStateList, content: Drawable?, mask: Drawable?): 
 
 fun maybeRipple(content: Drawable, pressed: Drawable, pressedColor: ColorInt): Drawable =
     if (Build.VERSION.SDK_INT >= 21) {
-      rippleDrawable(color = ColorStateList.valueOf(pressedColor),
-                     content = content,
-                     mask = content)
+        rippleDrawable(color = ColorStateList.valueOf(pressedColor),
+                       content = content,
+                       mask = content)
     } else {
-      stateListDrawable {
-        exitFadeDuration = 300
+        stateListDrawable {
+            exitFadeDuration = 300
 
-        pressedState { pressed }
+            pressedState { pressed }
 
-        defaultState { content }
-      }
+            defaultState { content }
+        }
     }
 
 /**
