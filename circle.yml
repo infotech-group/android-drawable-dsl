@@ -5,6 +5,7 @@ machine:
 
 dependencies:
   pre:
+    - export TERM="dumb"
     - echo y | android update sdk --no-ui --all --filter tools,android-26,build-tools-26.0.2
 
 test:
