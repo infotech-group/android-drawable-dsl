@@ -5,18 +5,17 @@ machine:
 
 dependencies:
   pre:
-    - echo y | android update sdk --no-ui --all --filter tools,android-26
-    - echo y | android update sdk --no-ui --all --filter build-tools-26.0.2
+    - echo y | android update sdk --no-ui --all --filter tools,android-26,build-tools-26.0.2
 
 test:
-  override:
+  pre:
     # start the emulator
     - emulator -avd circleci-android24 -no-window:
         background: true
         parallel: true
     # wait for it to have booted
     - circle-android wait-for-boot
-    # run tests  against the emulator.
-    - ./gradlew connectedAndroidTest
-    # copy the test results to the test results directory.
+
+  override:
+    - ./gradlew build connectedCheck
     - cp -r build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
