@@ -1,5 +1,4 @@
-android-drawable-dsl [![Build Status](https://travis-ci.org/infotech-group/android-drawable-dsl.svg?branch=master)](https://travis-ci.org/infotech-group/android-drawable-dsl)
-====================
+# Android Drawable Kotlin DSL [![CircleCI](https://circleci.com/gh/infotech-group/android-drawable-dsl.svg?style=svg)](https://circleci.com/gh/infotech-group/android-drawable-dsl)
 
 DSL for constructing the drawables in Kotlin instead of in XML
 
