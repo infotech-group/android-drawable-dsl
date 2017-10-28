@@ -88,7 +88,7 @@ fun circleShape(color: ColorInt, size: Px? = null): GradientDrawable =
 
 var GradientDrawable.solidColor: ColorInt
     set(value) = setColor(value)
-    @Deprecated(message = NO_GETTER, level = DeprecationLevel.ERROR) get() = error(NO_GETTER)
+    @Deprecated(message = NO_GETTER, level = DeprecationLevel.HIDDEN) get() = error(NO_GETTER)
 
 var GradientDrawable.size: Px
     set(value) = setSize(value, value)
@@ -118,32 +118,35 @@ inline fun GradientDrawable.size(fill: Size.() -> Unit): Size =
         setSize(it.width, it.height)
     }
 
-class Corners(all: FloatPx) {
-    var topLeft: FloatPx = all
-    var topRight: FloatPx = all
-    var bottomLeft: FloatPx = all
-    var bottomRight: FloatPx = all
+class Corners {
+    var radius: FloatPx = 0F
+
+    var topLeft: FloatPx = Float.NaN
+    var topRight: FloatPx = Float.NaN
+    var bottomLeft: FloatPx = Float.NaN
+    var bottomRight: FloatPx = Float.NaN
+
+    internal fun FloatPx.orRadius(): FloatPx =
+        takeIf { it >= 0 } ?: radius
 }
 
-inline fun GradientDrawable.corners(all: FloatPx, fill: Corners.() -> Unit): Corners =
-    Corners(all).also {
+fun Corners.render(): FloatArray =
+    floatArrayOf(
+        topLeft.orRadius(),
+        topLeft.orRadius(),
 
-        cornerRadius = all
+        topRight.orRadius(),
+        topRight.orRadius(),
 
-        fill(it)
+        bottomRight.orRadius(),
+        bottomRight.orRadius(),
 
-        if (it.topLeft != all || it.topRight != all || it.bottomLeft != all || it.bottomRight != all)
-            cornerRadii = floatArrayOf(
-                it.topLeft,
-                it.topLeft,
-                it.topRight,
-                it.topRight,
-                it.bottomRight,
-                it.bottomRight,
-                it.bottomLeft,
-                it.bottomLeft
-            )
-    }
+        bottomLeft.orRadius(),
+        bottomLeft.orRadius()
+    )
 
 inline fun GradientDrawable.corners(fill: Corners.() -> Unit): Corners =
-    corners(0f, fill)
+    Corners().also {
+        it.fill()
+        cornerRadii = it.render()
+    }

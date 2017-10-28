@@ -149,11 +149,15 @@ class SnapshotTest {
     fun corners() {
 
         val dsl = shapeDrawable {
-            shape = GradientDrawable.RECTANGLE
-            corners(all = 10f) {
-                topLeft = 15f
+
+            shapeEnum = Shape.RECTANGLE
+
+            corners {
                 bottomRight = 5f
+                radius = 10f
+                topLeft = 15f
             }
+
             solidColor = Color.parseColor("#666666")
         }
 

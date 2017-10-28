@@ -26,11 +26,15 @@ typealias DrawableRes = Int
 fun Context.drawable(d: DrawableRes): Drawable =
     resources.getDrawable(d)
 
-fun drawPixelsLike(actual: Drawable): Matcher<Drawable> =
+fun drawPixelsLike(expected: Drawable): Matcher<Drawable> =
     object : Matcher<Drawable> {
-        override fun test(value: Drawable): Result =
-            Result(
-                passed = snapshot(value).sameAs(snapshot(actual)),
-                message = "$value has different pixels than $actual"
+        override fun test(value: Drawable): Result {
+            val expectedBmp = snapshot(expected)
+            val actualBmp = snapshot(value)
+
+            return Result(
+                passed = expectedBmp.sameAs(actualBmp),
+                message = "expected $expected but got $value"
             )
+        }
     }
