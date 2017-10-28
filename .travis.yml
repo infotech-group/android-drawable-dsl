@@ -15,6 +15,8 @@ android:
   components:
     - tools
     - platform-tools
+    - tools
+    # Note that the tools section appears twice on purpose as it’s required to get the newest Android SDK tools.
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
     - android-$ANDROID_API_LEVEL
     - sys-img-armeabi-v7a-google_apis-$ANDROID_API_LEVEL
