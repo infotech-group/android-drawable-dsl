@@ -142,10 +142,10 @@ repositories {
 ```
 
 [![](https://jitpack.io/v/infotech-group/android-drawable-dsl.svg)](https://jitpack.io/#infotech-group/android-drawable-dsl)
-<a href="http://www.methodscount.com/?lib=com.github.infotech-group%3Aandroid-drawable-dsl%3A0.1.0"><img src="https://img.shields.io/badge/Methods count-core: 80 | deps: 6322-e91e63.svg"/></a>
+<a href="http://www.methodscount.com/?lib=com.github.infotech-group%3Aandroid-drawable-dsl%3A0.2.0"><img src="https://img.shields.io/badge/Methods and size-110 | 15 KB-e91e63.svg"/></a>
 
 ```groovy
-compile "com.github.infotech-group:android-drawable-dsl:latest"
+compile "com.github.infotech-group:android-drawable-dsl:0.2.0"
 ```
 
 ### Contribute
