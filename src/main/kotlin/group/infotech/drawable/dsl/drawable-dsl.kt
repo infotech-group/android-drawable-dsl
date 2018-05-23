@@ -1,7 +1,7 @@
 package group.infotech.drawable.dsl
 
-import android.annotation.TargetApi
 import android.content.res.ColorStateList
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.RippleDrawable
@@ -21,26 +21,27 @@ inline fun scaleDrawable(scale: Float, gravity: GravityInt = Gravity.CENTER, blo
         it.level = 1
     }
 
-@TargetApi(21)
-fun rippleDrawable(color: ColorStateList, content: Drawable?, mask: Drawable?): RippleDrawable =
-    RippleDrawable(color, content, mask)
+fun Drawable.copy(): Drawable =
+    constantState.newDrawable().mutate()
 
-fun maybeRipple(content: Drawable, pressed: Drawable, pressedColor: ColorInt): Drawable =
+fun rippleCompat(color: ColorInt, content: Drawable, mask: Drawable? = null): Drawable =
     when {
         Build.VERSION.SDK_INT >= 21 ->
-            rippleDrawable(
-                color = ColorStateList.valueOf(pressedColor),
-                content = content,
-                mask = content
-            )
+            RippleDrawable(ColorStateList.valueOf(color), content, mask)
 
         else ->
             stateListDrawable {
                 exitFadeDuration = 300
 
-                pressedState { pressed }
+                pressedState {
+                    content.copy().apply {
+                        setColorFilter(color, PorterDuff.Mode.SRC_IN)
+                    }
+                }
 
-                defaultState { content }
+                defaultState {
+                    content
+                }
             }
     }
 

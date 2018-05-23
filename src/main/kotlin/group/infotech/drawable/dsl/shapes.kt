@@ -57,9 +57,11 @@ var GradientDrawable.shapeEnum: Shape
     }
     @TargetApi(24) get() = fromInt(shape) ?: error("Illegal shape int $shape")
 
-fun rectangleShape(radius: FloatPx = Float.NaN,
-                   color: ColorInt,
-                   size: Px? = null): GradientDrawable =
+fun rectangleShape(
+    radius: FloatPx = Float.NaN,
+    color: ColorInt,
+    size: Px? = null
+): GradientDrawable =
     shapeDrawable {
         shapeEnum = Shape.RECTANGLE
 
